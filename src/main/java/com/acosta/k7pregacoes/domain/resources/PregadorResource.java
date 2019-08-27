@@ -3,6 +3,7 @@ package com.acosta.k7pregacoes.domain.resources;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,18 @@ public class PregadorResource {
 	private PregadorService service;
 	
 	@GetMapping()
-	public Iterable<Pregador> get() {
-	return service.getPregador();
+	public ResponseEntity<Iterable<Pregador>> get() {
+	return ResponseEntity.ok(service.getPregador());
 	
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Pregador> get(@PathVariable("id") Integer id) {
-		return service.getPregadorById(id);
+	public ResponseEntity get(@PathVariable("id") Integer id) {
+		Optional<Pregador> carro = service.getPregadorById(id);
+		
+		return carro
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/pregador/{pregador}")

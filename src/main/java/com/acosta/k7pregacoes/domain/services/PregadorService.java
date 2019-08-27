@@ -18,8 +18,8 @@ public class PregadorService {
 	
 	
 	//metodo que lista  todos os pregadores
-	public List<Pregador> getPregador() {
-		return (List<Pregador>) rep.findAll();
+	public Iterable<Pregador> getPregador() {
+		return rep.findAll();
 	}
 	
 	//metodo que busca por id
