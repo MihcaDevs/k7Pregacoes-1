@@ -1,5 +1,6 @@
-package com.acosta.k7pregacoes.domain.resources;
+package com.acosta.k7pregacoes.resources;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.acosta.k7pregacoes.domain.Pregador;
-import com.acosta.k7pregacoes.domain.services.PregadorService;
+import com.acosta.k7pregacoes.services.PregadorService;
 
 @RestController
 @RequestMapping("/api/v1/pregadores")
@@ -31,17 +32,25 @@ public class PregadorResource {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity get(@PathVariable("id") Integer id) {
-		Optional<Pregador> carro = service.getPregadorById(id);
+		Optional<Pregador> pregador = service.getPregadorById(id);
 		
-		return carro
+		return pregador
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+	
+	
 	@GetMapping("/pregador/{pregador}")
-	public Iterable<Pregador> get(@PathVariable("pregador") String pregador) {
-		return service.getPregadorByPregador(pregador);
+	public ResponseEntity getCarrosByPregador(@PathVariable("pregador") String pregador) {
+		List<Pregador> pregadores= service.getPregadorByPregador(pregador);
+		
+		return pregadores.isEmpty() ?
+				ResponseEntity.noContent().build() :
+				ResponseEntity.ok(pregadores);
 	}
+	
+	
 	
 	@PostMapping
 	public String post(@RequestBody Pregador pregador) {

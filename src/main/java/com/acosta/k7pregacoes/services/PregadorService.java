@@ -1,4 +1,4 @@
- package com.acosta.k7pregacoes.domain.services;
+ package com.acosta.k7pregacoes.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +28,13 @@ public class PregadorService {
 	}
 	
 	//metodo faz a busca pelo nome do pregador no campo pregador
-	public Iterable<Pregador> getPregadorByPregador(String pregador) {
+	public List<Pregador> getPregadorByPregador(String pregador) {
 		// TODO Auto-generated method stub
 		return rep.findByPregador(pregador);
 	}
 
+	
+	
 	//metodo que salva o pregador
 	public Pregador insert(Pregador pregador) {
 		return rep.save(pregador);
@@ -73,6 +75,7 @@ public class PregadorService {
 		}
 		
 	}
+	
 
 }
 

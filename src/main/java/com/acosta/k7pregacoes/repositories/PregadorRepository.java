@@ -1,5 +1,7 @@
 package com.acosta.k7pregacoes.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,6 @@ public interface PregadorRepository extends JpaRepository<Pregador, Integer> {
 	
 	
 	// A classe PregadorService busca aqui este metodo que precisou ser criado por nao ter findByPregador no obj rep
-	Iterable<Pregador> findByPregador(String pregador);
+	List<Pregador> findByPregador(String pregador);
 
 }
