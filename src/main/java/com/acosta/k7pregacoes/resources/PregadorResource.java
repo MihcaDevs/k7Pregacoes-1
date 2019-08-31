@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.acosta.k7pregacoes.domain.Pregador;
+import com.acosta.k7pregacoes.domain.dto.PregadorDTO;
 import com.acosta.k7pregacoes.services.PregadorService;
 
 @RestController
@@ -25,7 +26,7 @@ public class PregadorResource {
 	private PregadorService service;
 	
 	@GetMapping()
-	public ResponseEntity<Iterable<Pregador>> get() {
+	public ResponseEntity get() {
 	return ResponseEntity.ok(service.getPregador());
 	
 	}
@@ -43,7 +44,7 @@ public class PregadorResource {
 	
 	@GetMapping("/pregador/{pregador}")
 	public ResponseEntity getCarrosByPregador(@PathVariable("pregador") String pregador) {
-		List<Pregador> pregadores= service.getPregadorByPregador(pregador);
+		List<PregadorDTO> pregadores= service.getPregadorByPregador(pregador);
 		
 		return pregadores.isEmpty() ?
 				ResponseEntity.noContent().build() :

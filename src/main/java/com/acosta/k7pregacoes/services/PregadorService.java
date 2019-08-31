@@ -2,12 +2,14 @@
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.acosta.k7pregacoes.domain.Pregador;
+import com.acosta.k7pregacoes.domain.dto.PregadorDTO;
 import com.acosta.k7pregacoes.repositories.PregadorRepository;
 
 @Service
@@ -18,9 +20,13 @@ public class PregadorService {
 	
 	
 	//metodo que lista  todos os pregadores
-	public Iterable<Pregador> getPregador() {
-		return rep.findAll();
+	
+	public List<PregadorDTO> getPregador() {
+		return rep.findAll().stream().map(PregadorDTO::new).collect(Collectors.toList());
+		
+		
 	}
+	
 	
 	//metodo que busca por id
 	public Optional<Pregador> getPregadorById(Integer id) {
@@ -28,9 +34,8 @@ public class PregadorService {
 	}
 	
 	//metodo faz a busca pelo nome do pregador no campo pregador
-	public List<Pregador> getPregadorByPregador(String pregador) {
-		// TODO Auto-generated method stub
-		return rep.findByPregador(pregador);
+	public List<PregadorDTO> getPregadorByPregador(String pregador) {
+		return rep.findByPregador(pregador).stream().map(PregadorDTO::new).collect(Collectors.toList());
 	}
 
 	
